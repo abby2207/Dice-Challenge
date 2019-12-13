@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div class="output">
+        <div class="message"></div>
+        <input type="number">
+        <button>Guess</button>
+    </div>
+    <script>
+        
+        let game = {"min":1,"max":10};
+
+        document.addEventListener("DOMContentLoaded", function () {
+            console.log("Ready");
+        
+        game.output = document.querySelector(".output");
+        game.message = document.querySelector(".message");
+        game.guessInput = document.querySelector("input");
+        game.btn = document.querySelector("button");
+        game.btn.addEventListener("click",guessValue);
+
+        init();
+    })
+
+    function guessValue() {
+        let tempGuess = game.guessInput.value;
+        tempGuess = parseInt(tempGuess);
+        if(isNaN(tempGuess)) {
+            message("Please enter only Digits","red");
+        } else if(tempGuess === game.num) {
+            message("Your Guess is correct " +game.num,"green");
+            game.guessInput.styel.borderColor = "green";
+        } else {
+            let holder = tempGuess > game.num ? {"c":"blue","m":"Was Lower"} : {"c":"red","m":"Was higher"};
+            message(holder.m,holder.c);
+            game.guessInput.style.borderColor = holder.c;
+        }
+        
+    }
+
+    function init() {
+        game.num = ranNumber(game.max);
+        let tempMes = "Welcome to the Game. Guess a number from "+game.min+" to "+game.max;
+        message(tempMes,"blue");
+
+    }
+
+    function message(mes,clr) {
+        game.message.innerHTML = mes;
+        game.message.style.color = clr || "black";
+    }
+
+    function ranNumber(max){
+        return Math.floor(Math.random() * max) + 1;
+    }
+        
+    </script>
+</body>
+</html>
